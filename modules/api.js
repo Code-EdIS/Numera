@@ -25,3 +25,29 @@ export async function loginUser(email, password) {
     }
   }
 }
+
+export async function addTransaction(transaction){
+  try{
+  const {data: {user}} = await supabase.auth.getUser();
+  
+  const {data, error} = await supabase.from("transactions").insert([
+    {
+    ...transaction,
+    user_id: user.id,
+    }
+  ])
+  
+  if(error){
+    return{
+      success: false,
+      messagge: error,
+    }
+  }
+  return {success: true}
+  }catch(error){
+    return{
+      success: false,
+      messagge: "errore di rete",
+    }
+  }
+}

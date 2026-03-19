@@ -2,34 +2,21 @@ import { supabase } from "./modules/supabaseClient.js"
 
 import * as funzioni from "./modules/api.js"
 
-//blocco animazioni
-const titolo = document.getElementById("financialDashboard");
-const slogan = document.getElementById("slogan");
-const cardLogin = document.getElementById("loginCard");
+import * as anime from "./modules/animazioni.js"
 
-window.addEventListener("load", () => {
-  titolo.classList.remove("opacity-0", "scale-75");
-  slogan.classList.remove("opacity-0", "scale-75");
-  cardLogin.classList.remove("translate-y-8", "opacity-0", "scale-95");
-})
+//blocco animazioni
+
+window.addEventListener("load", anime.animazioneLogin());
 
 //blocco funzione login con dichiarazioni e funzione
 const form = document.getElementById("loginForm");
-
-const cardConto = document.getElementById("cardTotale");
-
-const cardTrans = document.getElementById("cardTransizioni");
 
 function mostraDashboard(){
   document.getElementById("paginaLogin").classList.add("hidden");
     
     document.getElementById("paginaPrincipale").classList.remove("hidden");
-  
-    cardConto.offsetHeight;
-    cardTrans.offsetHeight;
-  
-      cardConto.classList.remove("opacity-0", "scale-75");
-      cardTrans.classList.remove("translate-y-8", "scale-95", "opacity-0");
+    
+  anime.animazioneDashboard();
 }
 
 form.addEventListener("submit", async (e) => {
