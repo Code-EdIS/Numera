@@ -21,13 +21,17 @@
   
   <i id="pngSfondo" class="fa-regular fa-credit-card"></i>
   
-  <!--Section per la pagina di login.
-  sarà ovviamente una pagina placeholder in quanto non so fare un login vero.-->
+  <!--Section per la pagina di login.-->
   <section id="paginaLogin" class="h-screen w-full flex flex-col items-center justify-center m-0 p-0">
     
+    <!--Nome App-->
     <h1 id="financialDashboard" class="text-8xl font-Cookie text-[#8C6E1F]/50 scale-75 opacity-0 transition-all duration-1000">NUMERA</h1>
+    <!--Slogan
+      TODO da cambiare-->
     <p id="slogan" class="text-4xl font-Cookie font-cursive text-[#8C6E1F]/50 mb-40 opacity-0 scale-75 transition-all duration-1000 delay-500">Tracking Made Simple</p>
     
+    <!--Card adibita al login con form in cui inserire email e password
+      TODO sign-in-->
     <div id="loginCard" class="card bg-[#D1B045]/25 shadow-lg w-[90%] max-w-md p-8 rounded-2xl backdrop-blur-xl translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-[1s]">
       
       <h1 class="text-3xl font-medium text-[#C3C3C3] mb-4">Login</h1>
@@ -38,31 +42,39 @@
         <input type="password" class="rounded m-2 bg-[#D1B045]/15" placeholder="password" required>
         
         <button type="submit" id="bottoneLogin" class=" bg-gray-900/10 rounded-xl border border-[#303030] text-[#C3C3C3] m-2 self-end text-lg font-light p-1">Invia</button>
-        
       </form>
-      
     </div>
   </section>
   
   <!--La parte principale la vera dashboard con tutti le sezioni che servono-->
   <main id="paginaPrincipale" class="hidden h-screen w-full">
+    <!--Classica barea superiore con logo e pulsante esci per fare il logout-->
     <div id="barraUtility" class=" bg-black h-10 flex flex-row items-center justify-between">
       <i id="Icon" class="text-white fa-regular fa-credit-card ml-3 text-2xl"></i>
       <h1 id="logout" class="text-[#F4F8F9] text-2xl mr-3">Esci</h1>
     </div>
     
+    <!--Card che indica il totale schermo, indica sempre il totale alla "fine del mese" con tutti i conti già fatti-->
     <section id="cardTotale" class="border border-white/10 bg-white/5 rounded-3xl shadow-2xl backdrop-blur-lg w-[90%] max-w-md m-auto mt-12 p-4 opacity-0 scale-75 transition-all duration-1000 delay-100">
       <p id="ctaSaldo" class="text-2xl text-[#F4F8F9]">Il tuo saldo attuale:</p>
       <h1 id="deposito" class="text-4xl text-[#F4F8F9] m-4"><span id="aggiorna" class="text-7xl md:text-8xl">0.00</span>€</h1>
     </section>
     
+    <!--Lista movimenti filtrabili e in ordine cronologico
+      TODO filtro secondo tutte le opzioni possibili-->
     <section id="cardTransizioni" class=" flex flex-col border border-white/10 bg-white/5 rounded-3xl shadow-2xl backdrop-blur-lg w-[90%] max-w-md min-h-40 m-auto mt-20 translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-1000">
       <article id="movimentiAdd" class="flex items-center justify-between border-b border-white/5 w-full p-4 max-h-4">
       <h1 class="text-[#F4F8F9]">I tuoi movimenti</h1>
+      
+      <!--Pulsante di aggiunta movimenti-->
       <button id="addMovimento" class="text-[#F4F8F9] text-3xl focus:scale-105 hover:scale-105 active:scale-95 transition-transform duration-300 ease-out">+</button>
       </article>
+      
+      <!--Card che appare per i dettagli dell'aggiunta del movimento-->
+      <article id="cardDiAggiunta"></article>
+      
+      <!--Effettiva lista dei movimenti-->
       <article id="listaMovimenti" class=" flex-1 p-1 m-1 border border-white/5 rounded-3xl">
-        
       </article>
     </section>
   </main>

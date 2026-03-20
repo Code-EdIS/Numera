@@ -9,7 +9,7 @@ import * as anime from "./modules/animazioni.js"
 window.addEventListener("load", anime.animazioneLogin());
 
 //blocco funzione login con dichiarazioni e funzione
-const form = document.getElementById("loginForm");
+const formLogin = document.getElementById("loginForm");
 
 function mostraDashboard(){
   document.getElementById("paginaLogin").classList.add("hidden");
@@ -19,7 +19,7 @@ function mostraDashboard(){
   anime.animazioneDashboard();
 }
 
-form.addEventListener("submit", async (e) => {
+formLogin.addEventListener("submit", async (e) => {
   e.preventDefault();
   
   const { data: {session}} = await supabase.auth.getSession();
@@ -27,8 +27,8 @@ form.addEventListener("submit", async (e) => {
   if(session){
     mostraDashboard();
   }else{
-    const mail = form.querySelector("input[type='email']").value;
-    const password = form.querySelector("input[type='password']").value;
+    const mail = formLogin.querySelector("input[type='email']").value;
+    const password = formLogin.querySelector("input[type='password']").value;
     
     const res = await funzioni.loginUser(mail, password);
     
@@ -39,3 +39,6 @@ form.addEventListener("submit", async (e) => {
     }
   }
 });
+
+//blocco movimenti
+const pulsanteAggiunta = document.getElementById("addMovimento");
