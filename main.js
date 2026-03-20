@@ -19,14 +19,15 @@ function mostraDashboard(){
   anime.animazioneDashboard();
 }
 
-formLogin.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  
-  const { data: {session}} = await supabase.auth.getSession();
+const { data: {session}} = await supabase.auth.getSession();
   
   if(session){
     mostraDashboard();
   }else{
+    formLogin.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  
+  
     const mail = formLogin.querySelector("input[type='email']").value;
     const password = formLogin.querySelector("input[type='password']").value;
     
@@ -38,7 +39,7 @@ formLogin.addEventListener("submit", async (e) => {
       alert(res.message);
     }
   }
-});
+)}; 
 
 //blocco movimenti
 const pulsanteAggiunta = document.getElementById("addMovimento");
