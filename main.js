@@ -43,3 +43,44 @@ const { data: {session}} = await supabase.auth.getSession();
 
 //blocco movimenti
 const pulsanteAggiunta = document.getElementById("addMovimento");
+
+const formAggiunta= document.getElementById("movimentiInseriti");
+
+formAggiunta.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(formAggiunta);
+  let transaction = Object.fromEntries(formData.entries());
+  
+  //aggiusto i tipi di dati
+  transaction.amount = Number(transaction.amount);
+  
+  transaction.type = transaction.tipo;
+  delete transaction.tipo;
+  
+  transaction.recurrent = transaction.ricorrenza === "si";
+  delete transaction.ricorrenza;
+  
+  transaction.description = transaction.description?.trim() || null;
+  
+  transaction.frequency = transaction.frequenza || null;
+  delete transaction.frequenza;
+  
+  transaction.start_date = new Date().toISOString().split("T")[0];
+  
+  if(transaction.fineRicorrenza === "infinito"){
+    transaction.end_date = null;
+  } else{
+    transaction.end_date = transaction.end_date || null;
+  }
+  delete transaction.fineRicorrenza;
+  
+  const res = await funzioni.addTransaction(transaction);
+  
+  if(res.success){
+    alert("transazione aggiornata correttamente")
+    formAggiunta.reset();
+  }else{
+    alert(res.messagge);
+  }
+})

@@ -11,3 +11,11 @@
     overflow: hidden;
     z-index:-10;
 }
+
+#movimentiInseriti label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+}

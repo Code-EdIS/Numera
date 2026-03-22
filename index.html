@@ -17,7 +17,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-[#303030] m-0 p-0 overflow-hidden">
+<body class="bg-[#303030] m-0 p-0 overflowX-hidden">
   
   <i id="pngSfondo" class="fa-regular fa-credit-card"></i>
   
@@ -48,7 +48,7 @@
   
   <!--La parte principale la vera dashboard con tutti le sezioni che servono-->
   <main id="paginaPrincipale" class="hidden h-screen w-full">
-    <!--Classica barea superiore con logo e pulsante esci per fare il logout-->
+    <!--Classica area superiore con logo e pulsante esci per fare il logout-->
     <div id="barraUtility" class=" bg-black h-10 flex flex-row items-center justify-between">
       <i id="Icon" class="text-white fa-regular fa-credit-card ml-3 text-2xl"></i>
       <h1 id="logout" class="text-[#F4F8F9] text-2xl mr-3">Esci</h1>
@@ -62,7 +62,7 @@
     
     <!--Lista movimenti filtrabili e in ordine cronologico
       TODO filtro secondo tutte le opzioni possibili-->
-    <section id="cardTransizioni" class=" flex flex-col border border-white/10 bg-white/5 rounded-3xl shadow-2xl backdrop-blur-lg w-[90%] max-w-md min-h-40 m-auto mt-20 translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-1000">
+    <section id="cardTransizioni" class="flex flex-col border border-white/10 bg-white/5 rounded-3xl shadow-2xl backdrop-blur-lg w-[90%] max-w-md min-h-40 m-auto mt-20 translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-1000">
       <article id="movimentiAdd" class="flex items-center justify-between border-b border-white/5 w-full p-4 max-h-4">
       <h1 class="text-[#F4F8F9]">I tuoi movimenti</h1>
       
@@ -70,24 +70,86 @@
       <button id="addMovimento" class="text-[#F4F8F9] text-3xl focus:scale-105 hover:scale-105 active:scale-95 transition-transform duration-300 ease-out">+</button>
       </article>
       
-      <!--Card che appare per i dettagli dell'aggiunta del movimento-->
-      <article id="cardDiAggiunta" class=" fixed flex flex-col items-center justify-between min-h-60 min-w-60 z-10 p-1 self-center bg-[#0B0B0B] rounded-3xl">
-        <form id="movimentiInseriti" class="flex flex-col items-center justify-center">
-          <h6 class="text-white">AGGIUNTA MOVIMENTO</h6>
-          <label class="text-white">Importo:</label>
-          <input type="text" required>
-          <label class=" text-white">
-            <p>tipo di movimento:</p>
-          <input type="radio" name"entrata" value="income" class="hidden peer">
-          <div class="peer-checked:bg-[#F40000]">entrata</div>
-          </label>
-        </form>
-      </article>
-      
       <!--Effettiva lista dei movimenti-->
       <article id="listaMovimenti" class=" flex-1 p-1 m-1 border border-white/5 rounded-3xl">
       </article>
     </section>
+    
+    <!--Card che appare per i dettagli dell'aggiunta del movimento-->
+      <section id="cardDiAggiunta" class="absolute self-center flex flex-col items-center justify-between h-auto w-[90%] ml-4 z-10 p-4 bg-[#0B0B0B] rounded-3xl">
+        
+        <form id="movimentiInseriti" class="flex flex-col items-center justify-center">
+          
+          <h6 class="text-white">AGGIUNTA MOVIMENTO</h6>
+          
+          <!--Valore della transazione da aggiungere-->
+          <label class="text-white">Importo:
+          <input type="number" class="text-black" name="amount" step="any" required>
+          </label>
+          
+          <!--Uscita o entrata sul conto-->
+          <h6 class="text-white">tipo di movimento:</h6>
+          <div class="flex flex-row items-center justify-around w-[100%]">
+            <label class="text-white">
+            <input type="radio" name="tipo" value="income" class="hidden peer" required>
+            <div class="peer-checked:bg-[#F40000]">entrata</div>
+            </label>
+            
+            <label class="text-white">
+            <input type="radio" name="tipo" value="expense" class="hidden peer">
+            <div class="peer-checked:bg-[#F40000]">uscita</div>
+            </label>
+          </div>
+          
+          <!--Descrizione utile al utente per se stesso e per i vari filtri-->
+          <label class="text-white">
+            Descrizione:
+            <input type="textarea" name="description" class="text-black">
+          </label>
+          
+          <!--Indica se l'operazione è ricorrente in cosa positivo il form diventa più grande in maniera da poter inserire gli altri dettagli-->
+          <h6 class="text-white">È ricorrente?</h6>
+          <div class="flex flex-row items-center justify-around w-[100%]">
+            <label class="text-white">
+            <input type="radio" name="ricorrenza" value="si" class="hidden peer" required>
+            <div class="peer-checked:bg-[#F40000]">si</div>
+            </label>
+            
+            <label class="text-white">
+            <input type="radio" name="ricorrenza" value="no" class="hidden peer">
+            <div class="peer-checked:bg-[#F40000]">no</div>
+            </label>
+          </div>
+          
+          <!--end_date, checkbox con data o opzione senza fine-->
+          <h6 class="text-white">Quando finisce?</h6>
+          <div class="flex flex-row items-center justify-around w-[100%]">
+            <label class="text-white">
+              <input type="radio" name="fineRicorrenza" value="infinito" class="hidden peer">
+              <div class="peer-checked:bg-[#F40000]">Senza fine</div>
+            </label>
+            <label class="text-white">
+              <input type="radio" name="fineRicorrenza" value="data" class="hidden peer"><p class="peer-checked:bg-[#F40000]">fino a:</p>
+              <div class="hidden peer-checked:block">
+                <input type="date" name="end_date" class="text-black">
+              </div>
+            </label>
+          </div>
+          
+          <!--Frequenza dell'operazione ricorrente-->
+          <h6 class="text-white">Con che frequenza?</h6>
+          <label class="text-white">
+            <select name="frequenza" id="frequenzaOperazione" class="text-black">
+              <option value="weekly">settimanale</option>
+              <option value="monthly">mensile</option>
+              <<option value="yearly">annuale</option>
+            </select>
+          </label>
+          
+        <button id="inviaMovimenti" type="submit" class="text-white self-end m-4">Conferma</button>
+        </form>
+      </section>
+      
   </main>
   
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
