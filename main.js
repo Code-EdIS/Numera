@@ -4,10 +4,6 @@ import * as funzioni from "./modules/api.js"
 
 import * as anime from "./modules/animazioni.js"
 
-//blocco animazioni
-
-window.addEventListener("load", anime.animazioneLogin());
-
 //blocco funzione login con dichiarazioni e funzione
 const formLogin = document.getElementById("loginForm");
 
@@ -19,27 +15,28 @@ function mostraDashboard(){
   anime.animazioneDashboard();
 }
 
-const { data: {session}} = await supabase.auth.getSession();
-  
-  if(session){
-    mostraDashboard();
-  }else{
-    formLogin.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  
-  
-    const mail = formLogin.querySelector("input[type='email']").value;
-    const password = formLogin.querySelector("input[type='password']").value;
+window.addEventListener('load', async() => {
+  const {data, error} = await supabase.auth.getSession();
+  const session = data?.session ?? null;
     
-    const res = await funzioni.loginUser(mail, password);
-    
-    if(res.success){
+    if(session){
       mostraDashboard();
     }else{
-      alert(res.message);
-    }
-  }
-)}; 
+      anime.animazioneLogin();
+      formLogin.addEventListener("submit", async (e) => {
+      e.preventDefault();
+  
+        const mail = formLogin.querySelector("input[type='email']").value;
+        const password = formLogin.querySelector("input[type='password']").value;
+        
+        const res = await funzioni.loginUser(mail, password);
+        
+        if(res.success){
+          mostraDashboard();
+        }else{
+          alert(res.message);
+        }})}; 
+});
 
 //blocco movimenti
 const pulsanteAggiunta = document.getElementById("addMovimento");
