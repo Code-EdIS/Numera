@@ -39,7 +39,7 @@ export async function addTransaction(transaction){
   if(error){
     return{
       success: false,
-      messagge: error,
+      messagge: error.messagge,
     }
   }
   return {success: true}
