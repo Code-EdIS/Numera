@@ -50,3 +50,24 @@ export async function addTransaction(transaction){
     }
   }
 }
+
+export async function contaImporto(){
+  try{
+  const {data: {user}} = await supabase.auth.getUser();
+  
+  const {data: numbers, error} = await supabase.from("transactions").select("amount, type").eq("user_id", user.id);
+
+  let totale=0;
+  
+  numbers.forEach( t => {
+    if(t.type === "expense"){
+      totale -= t.amount;
+    }else totale += t.amount;
+  })
+  
+  return totale;
+  }catch(error){
+    alert(error.message);
+    return 0;
+  }
+}

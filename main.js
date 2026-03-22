@@ -4,6 +4,12 @@ import * as funzioni from "./modules/api.js"
 
 import * as anime from "./modules/animazioni.js"
 
+async function aggiornaUI(){
+  const totale = await funzioni.contaImporto();
+  
+    document.getElementById("aggiorna").textContent = totale.toFixed(2);
+}
+
 //blocco funzione login con dichiarazioni e funzione
 const formLogin = document.getElementById("loginForm");
 
@@ -21,6 +27,7 @@ window.addEventListener('load', async() => {
     
     if(session){
       mostraDashboard();
+      aggiornaUI();
     }else{
       anime.animazioneLogin();
       formLogin.addEventListener("submit", async (e) => {
@@ -33,6 +40,7 @@ window.addEventListener('load', async() => {
         
         if(res.success){
           mostraDashboard();
+          aggiornaUI();
         }else{
           alert(res.message);
         }})}; 
@@ -77,7 +85,8 @@ formAggiunta.addEventListener('submit', async (e) => {
   if(res.success){
     alert("transazione aggiornata correttamente")
     formAggiunta.reset();
+    aggiornaUI();
   }else{
-    alert(res.messagge);
+    alert(res.message);
   }
 })
