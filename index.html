@@ -17,7 +17,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-[#303030] m-0 p-0 overflowX-hidden">
+<body class="bg-[#303030] overflow-hidden m-0 p-0 ">
   
   <i id="pngSfondo" class="fa-regular fa-credit-card"></i>
   
@@ -60,23 +60,11 @@
       <h1 id="deposito" class="text-4xl text-[#F4F8F9] m-4"><span id="aggiorna" class="text-7xl md:text-8xl">0.00</span>€</h1>
     </section>
     
-    <!--Lista movimenti filtrabili e in ordine cronologico
-      TODO filtro secondo tutte le opzioni possibili-->
-    <section id="cardTransizioni" class="flex flex-col border border-white/10 bg-white/5 rounded-3xl shadow-2xl backdrop-blur-lg w-[90%] max-w-md min-h-40 m-auto mt-20 translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-1000">
-      <article id="movimentiAdd" class="flex items-center justify-between border-b border-white/5 w-full p-4 max-h-4">
-      <h1 class="text-[#F4F8F9]">I tuoi movimenti</h1>
-      
-      <!--Pulsante di aggiunta movimenti-->
-      <button id="addMovimento" class="text-[#F4F8F9] text-3xl focus:scale-105 hover:scale-105 active:scale-95 transition-transform duration-300 ease-out">+</button>
-      </article>
-      
-      <!--Effettiva lista dei movimenti-->
-      <article id="listaMovimenti" class=" flex-1 p-1 m-1 border border-white/5 rounded-3xl">
-      </article>
-    </section>
+    <!--div che fa chiudure la card quando viene cliccati fuori da essa-->
+    <div id="overlayChiusuraCard" class="fixed inset-0 bg-black/50 pointer-events-none opacity-0 transition-all duration-300 z-10"></div>
     
     <!--Card che appare per i dettagli dell'aggiunta del movimento-->
-      <section id="cardDiAggiunta" class="absolute self-center flex flex-col items-center justify-between h-auto w-[90%] ml-4 z-10 p-4 bg-[#0B0B0B] rounded-3xl">
+      <section id="cardDiAggiunta" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden flex flex-col items-center justify-between h-auto w-auto ml-4 z-20 p-4 bg-[#202020] border border-black rounded-3xl scale-0 transition-all duration-10000">
         
         <form id="movimentiInseriti" class="flex flex-col items-center justify-center">
           
@@ -121,17 +109,18 @@
             </label>
           </div>
           
+        <div id="extraRicorrenza" class="max-h-0 overflow-hidden transition-all duration-1000">
           <!--end_date, checkbox con data o opzione senza fine-->
           <h6 class="text-white">Quando finisce?</h6>
           <div class="flex flex-row items-center justify-around w-[100%]">
             <label class="text-white">
-              <input type="radio" name="fineRicorrenza" value="infinito" class="hidden peer">
+              <input type="radio" name="fineRicorrenza" value="infinito" class="hidden peer" disabled>
               <div class="peer-checked:bg-[#F40000]">Senza fine</div>
             </label>
             <label class="text-white">
-              <input type="radio" name="fineRicorrenza" value="data" class="hidden peer"><p class="peer-checked:bg-[#F40000]">fino a:</p>
+              <input type="radio" name="fineRicorrenza" value="data" class="hidden peer" disabled><p class="peer-checked:bg-[#F40000]">fino a:</p>
               <div class="hidden peer-checked:block">
-                <input type="date" name="end_date" class="text-black">
+                <input type="date" name="end_date" class="text-black" disabled>
               </div>
             </label>
           </div>
@@ -139,16 +128,33 @@
           <!--Frequenza dell'operazione ricorrente-->
           <h6 class="text-white">Con che frequenza?</h6>
           <label class="text-white">
-            <select name="frequenza" id="frequenzaOperazione" class="text-black">
+            <select name="frequenza" id="frequenzaOperazione" class="text-black" disabled>
+              <option value="never">mai</option>
               <option value="weekly">settimanale</option>
               <option value="monthly">mensile</option>
               <<option value="yearly">annuale</option>
             </select>
           </label>
+        </div>
           
         <button id="inviaMovimenti" type="submit" class="text-white self-end m-4">Conferma</button>
         </form>
       </section>
+    
+    <!--Lista movimenti filtrabili e in ordine cronologico
+      TODO filtro secondo tutte le opzioni possibili-->
+    <section id="cardTransizioni" class="flex flex-col border border-white/10 bg-white/5 rounded-3xl shadow-2xl backdrop-blur-lg w-[90%] max-w-md min-h-40 m-auto mt-20 translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-1000">
+      <article id="movimentiAdd" class="flex items-center justify-between border-b border-white/5 w-full p-4 max-h-4">
+      <h1 class="text-[#F4F8F9]">I tuoi movimenti</h1>
+      
+      <!--Pulsante di aggiunta movimenti-->
+      <button id="addMovimento" class="text-[#F4F8F9] text-3xl focus:scale-105 hover:scale-105 active:scale-95 transition-transform duration-300 ease-out">+</button>
+      </article>
+      
+      <!--Effettiva lista dei movimenti-->
+      <article id="listaMovimenti" class=" flex-1 p-1 m-1 border border-white/5 rounded-3xl">
+      </article>
+    </section>
       
   </main>
   

@@ -4,11 +4,54 @@ import * as funzioni from "./modules/api.js"
 
 import * as anime from "./modules/animazioni.js"
 
+//funzione di aggiornamento UI che parte in ogni occasione necessaria
 async function aggiornaUI(){
   const totale = await funzioni.contaImporto();
   
     document.getElementById("aggiorna").textContent = totale.toFixed(2);
 }
+
+//apparizione card di aggiunta transizione 
+const transizioneAggiunta = document.getElementById("addMovimento");
+
+transizioneAggiunta.addEventListener("click", () => {
+  anime.apriTransazioni();
+}
+)
+
+//ingrandimento tendine di aggiunta operazioni in caso di operazione ricorrente
+
+const inputRicorrenza = document.querySelectorAll("input[name='ricorrenza']");
+
+function abilitaRicorrenza(){
+  document.querySelectorAll("#extraRicorrenza input, #extraRicorrenza select")
+    .forEach(el => el.disabled = false);
+}
+
+function disabilitaRicorrenza(){
+  document.querySelectorAll("#extraRicorrenza input, #extraRicorrenza select")
+    .forEach(el => {
+      el.disabled = true;
+
+      // reset valore
+      if(el.type === "radio" || el.type === "checkbox"){
+        el.checked = false;
+      } else {
+        el.value = "";
+      }
+    });
+}
+
+inputRicorrenza.forEach(input => {
+  input.addEventListener('change', () => {
+    if(input.value === "si" && input.checked){
+      anime.apriTendinaRicorrenza();
+      abilitaRicorrenza();
+    }else{
+      anime.chiudiTendinaRicorrenza();
+      disabilitaRicorrenza();
+    }
+  })})
 
 //blocco funzione login con dichiarazioni e funzione
 const formLogin = document.getElementById("loginForm");
@@ -51,6 +94,11 @@ const pulsanteAggiunta = document.getElementById("addMovimento");
 
 const formAggiunta= document.getElementById("movimentiInseriti");
 
+function resetFormCompleto() {
+  disabilitaRicorrenza();
+  formAggiunta.reset();
+}
+
 formAggiunta.addEventListener('submit', async (e) => {
   e.preventDefault();
   
@@ -83,10 +131,18 @@ formAggiunta.addEventListener('submit', async (e) => {
   const res = await funzioni.addTransaction(transaction);
   
   if(res.success){
-    alert("transazione aggiornata correttamente")
-    formAggiunta.reset();
+    formAggiunta.textContent = "transazione aggiunta correttamente"
+    anime.chiudiTransazione();
+    resetFormCompleto();
     aggiornaUI();
   }else{
     alert(res.message);
   }
+})
+
+const overlay = document.getElementById("overlayChiusuraCard");
+
+overlay.addEventListener("click", () => {
+  anime.chiudiTransazione();
+  resetFormCompleto();
 })
