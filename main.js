@@ -52,27 +52,43 @@ inputRicorrenza.forEach(input => {
       disabilitaRicorrenza();
     }
   })})
+  
+//mostra e chiudi dashboard e pagina login
 
-//blocco funzione login con dichiarazioni e funzione
-const formLogin = document.getElementById("loginForm");
+function mostraLogin(){
+  document.getElementById("paginaLogin").classList.remove("hidden");
+  
+  anime.animazioneLogin();
+}
+
+function chiudiLogin() {
+  document.getElementById("paginaLogin").classList.add("hidden");
+}
 
 function mostraDashboard(){
-  document.getElementById("paginaLogin").classList.add("hidden");
-    
-    document.getElementById("paginaPrincipale").classList.remove("hidden");
+  document.getElementById("paginaPrincipale").classList.remove("hidden");
     
   anime.animazioneDashboard();
 }
+
+function chiudiDashboard(){
+  document.getElementById("paginaPrincipale").classList.add("hidden");
+}
+
+//document.getElementById("paginaLogin").classList.add("hidden"); funzione login con dichiarazioni e funzione
+const formLogin = document.getElementById("loginForm");
 
 window.addEventListener('load', async() => {
   const {data, error} = await supabase.auth.getSession();
   const session = data?.session ?? null;
     
     if(session){
+      chiudiLogin();
       mostraDashboard();
       aggiornaUI();
     }else{
-      anime.animazioneLogin();
+      chiudiDashboard();
+      mostraLogin();
       formLogin.addEventListener("submit", async (e) => {
       e.preventDefault();
   
@@ -82,8 +98,10 @@ window.addEventListener('load', async() => {
         const res = await funzioni.loginUser(mail, password);
         
         if(res.success){
+          chiudiLogin();
           mostraDashboard();
           aggiornaUI();
+          formLogin.reset();
         }else{
           alert(res.message);
         }})}; 
@@ -145,4 +163,19 @@ const overlay = document.getElementById("overlayChiusuraCard");
 overlay.addEventListener("click", () => {
   anime.chiudiTransazione();
   resetFormCompleto();
+})
+
+//funzione logout
+const logoutBtn = document.getElementById("logout");
+
+logoutBtn.addEventListener("click", async () => {
+  const res = await funzioni.logout();
+  
+  if(!res.success){
+    alert(res.message);
+  }else{
+    alert("logout riuscito");
+    chiudiDashboard();
+    mostraLogin();
+  }
 })

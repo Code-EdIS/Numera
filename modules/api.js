@@ -71,3 +71,23 @@ export async function contaImporto(){
     return 0;
   }
 }
+
+export async function logout() {
+  try{
+  const {error} = await supabase.auth.signOut();
+  
+  if(error){ 
+    return{
+    success: false,
+    message: error.message,
+    }} else {
+    return{
+      success: true
+    }}
+  }catch(e){
+    return { 
+      success: false,
+      messagge: e.message,
+    }
+  }
+}
