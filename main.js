@@ -53,6 +53,29 @@ inputRicorrenza.forEach(input => {
     }
   })})
   
+//lista effettiva delle transizion
+async function caricaLista(){
+const cardLista = document.getElementById("listaMovimenti");
+
+const res = await funzioni.prendiMovimenti();
+
+let html = "";
+
+if(!res.success){
+  cardLista.innerHTML = `<p>errore nel caricamento della lisa</p>`
+}else{
+  const listaTransazioni = res.data;
+  listaTransazioni.forEach(el =>
+    html += `
+    <p class="self-start border-r border-white/10 rounded-l p-1 text-white">${el.date}</p>
+    <div class="flex flex-row text-white border-b border-white/10 justify-around">
+       <p>${el.amount}</p>
+       <p>${el.description}</p>
+    </div>`
+  )}
+  
+  cardLista.innerHTML = html;
+}
 //mostra e chiudi dashboard e pagina login
 
 function mostraLogin(){
@@ -75,7 +98,7 @@ function chiudiDashboard(){
   document.getElementById("paginaPrincipale").classList.add("hidden");
 }
 
-//document.getElementById("paginaLogin").classList.add("hidden"); funzione login con dichiarazioni e funzione
+//funzione login con dichiarazioni e funzione
 const formLogin = document.getElementById("loginForm");
 
 window.addEventListener('load', async() => {
@@ -86,6 +109,7 @@ window.addEventListener('load', async() => {
       chiudiLogin();
       mostraDashboard();
       aggiornaUI();
+      caricaLista();
     }else{
       chiudiDashboard();
       mostraLogin();
@@ -101,6 +125,7 @@ window.addEventListener('load', async() => {
           chiudiLogin();
           mostraDashboard();
           aggiornaUI();
+          caricaLista();
           formLogin.reset();
         }else{
           alert(res.message);
@@ -153,6 +178,7 @@ formAggiunta.addEventListener('submit', async (e) => {
     anime.chiudiTransazione();
     resetFormCompleto();
     aggiornaUI();
+    caricaLista();
   }else{
     alert(res.message);
   }
@@ -177,5 +203,28 @@ logoutBtn.addEventListener("click", async () => {
     alert("logout riuscito");
     chiudiDashboard();
     mostraLogin();
+  }
+})
+
+//blocco funzione e dichiarazioni signUp
+
+const signUpBtn = document.getElementById("signIn");
+
+signUpBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+  
+  const email = formLogin.querySelector("input[type='email']").value;
+  const password = formLogin.querySelector("input[type='password']").value;
+  
+  const res = await funzioni.signIn(email, password);
+  
+  if(res.success){
+    alert("registrazione avvenuta con successo");
+    chiudiLogin();
+    mostraDashboard();
+    formLogin.reset();
+  }else{
+    alert(res.message);
+    formLogin.reset();
   }
 })

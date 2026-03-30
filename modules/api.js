@@ -91,3 +91,51 @@ export async function logout() {
     }
   }
 }
+
+export async function signIn(email, password){
+  try{
+    const {data, error}= await supabase.auth.signUp({
+      email,
+      password,
+    });
+    
+    if(error){
+      return {
+        success: false,
+        messagge: error.message,
+      }
+     }else{
+        return{ success: true };
+      }
+  }catch(e){
+    return {
+      success: false,
+      messagge: e.message,
+    }
+  }
+}
+
+export async function prendiMovimenti(){
+  try{
+    const {data: {user}} = await supabase.auth.getUser();
+    
+    const {data: transactions, error} = await supabase.from("transactions").select("*").eq("user_id", user.id);
+    
+    if (error) {
+      return {
+        success: false,
+        messagge: error.message
+      }
+    }else{
+      return {
+        success: true,
+        data: transactions
+      }
+    }
+  }catch(e){
+    return {
+      success: false,
+      message: e.message
+    }
+  }
+}
