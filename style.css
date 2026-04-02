@@ -23,3 +23,26 @@
 #movimentiInseriti h6{
     margin-top: 0.75rem;
 }
+
+#movimentiInseriti input{
+    background: rgb(42, 42, 42);
+    border-radius: 20px;
+    border-bottom: 1px solid rgb(64, 64, 64);
+    color: white;
+}
+
+#movimeniInseriti::radio, #movimeniInseriti::select, #movimeniInseriti::date{
+    border-radius: 20px;
+    border-bottom: 1px solid rgb(64, 64, 64);
+}
+
+.bgWhiteBackdrop{
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.roundedRadio{
+    padding: 1%;
+    border-radius: 20px;
+}

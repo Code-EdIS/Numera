@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="eit">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,18 +32,18 @@
     
     <!--Card adibita al login con form in cui inserire email e password
       TODO sign-in-->
-    <div id="loginCard" class="card bg-[#D1B045]/25 shadow-lg w-[90%] max-w-md p-8 rounded-2xl backdrop-blur-xl translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-[1s]">
+    <div id="loginCard" class="card bg-white/5 border border-white/10 shadow-lg w-[90%] max-w-md p-8 rounded-2xl backdrop-blur-xl translate-y-8 scale-95 opacity-0 transition-all duration-1000 delay-[1s]">
       
       <h1 class="text-3xl font-medium text-[#C3C3C3] mb-4">Login</h1>
       
       <form id="loginForm" class="form login flex flex-col">
         
-        <input type="email" class="rounded m-2 bg-[#D1B045]/15" placeholder="Utente" required>
-        <input type="password" class="rounded m-2 bg-[#D1B045]/15" placeholder="password" required>
+        <input type="email" class="rounded m-2 bgWhiteBackdrop text-white" placeholder="Utente" required>
+        <input type="password" class="rounded m-2 bgWhiteBackdrop" placeholder="password" required>
         
-        <button type="submit" id="bottoneLogin" class=" bg-gray-900/10 rounded-xl border border-[#303030] text-[#C3C3C3] m-2 self-end text-lg font-light p-1">Invia</button>
-        <p class="text-[#C3C3C3]">Se non hai un account, inserisci le nuove credenziali e</p>
-      <button id="signIn" class="text-[#313131]">clicca qua</button>
+        <button type="submit" id="bottoneLogin" class=" bg-gray-900/15 rounded-xl border border-[#303030] text-[#8C6E1F] m-2 self-end text-lg font-light p-1">Invia</button>
+        <p class="text-[#C3C3C3]">Se non hai un account, inserisci le nuove credenziali e
+      <button id="signIn" class="text-[#8C6E1F]">clicca qua</button></p>
       </form>
     </div>
   </section>
@@ -82,12 +82,12 @@
           <div class="flex flex-row items-center justify-around w-[100%]">
             <label class="text-white">
             <input type="radio" name="tipo" value="income" class="hidden peer" required>
-            <div class="peer-checked:bg-[#F40000]">entrata</div>
+            <div class="roundedRadio peer-checked:bg-[#313131]">entrata</div>
             </label>
             
             <label class="text-white">
             <input type="radio" name="tipo" value="expense" class="hidden peer">
-            <div class="peer-checked:bg-[#F40000]">uscita</div>
+            <div class="roundedRadio peer-checked:bg-[#313131]">uscita</div>
             </label>
           </div>
           
@@ -102,12 +102,12 @@
           <div class="flex flex-row items-center justify-around w-[100%]">
             <label class="text-white">
             <input type="radio" name="ricorrenza" value="si" class="hidden peer" required>
-            <div class="peer-checked:bg-[#F40000]">si</div>
+            <div class="roundedRadio peer-checked:bg-[#313131]/50">si</div>
             </label>
             
             <label class="text-white">
             <input type="radio" name="ricorrenza" value="no" class="hidden peer">
-            <div class="peer-checked:bg-[#F40000]">no</div>
+            <div class="roundedRadio peer-checked:bg-[#313131]/50">no</div>
             </label>
           </div>
           
@@ -117,10 +117,10 @@
           <div class="flex flex-row items-center justify-around w-[100%]">
             <label class="text-white">
               <input type="radio" name="fineRicorrenza" value="infinito" class="hidden peer" disabled>
-              <div class="peer-checked:bg-[#F40000]">Senza fine</div>
+              <div class="roundedRadio peer-checked:bg-[#313131]">Mai</div>
             </label>
             <label class="text-white">
-              <input type="radio" name="fineRicorrenza" value="data" class="hidden peer" disabled><p class="peer-checked:bg-[#F40000]">fino a:</p>
+              <input type="radio" name="fineRicorrenza" value="data" class="hidden peer" disabled><p class="roundedRadio peer-checked:bg-[#313131]">fino a:</p>
               <div class="hidden peer-checked:block">
                 <input type="date" name="end_date" class="text-black" disabled>
               </div>
@@ -130,7 +130,7 @@
           <!--Frequenza dell'operazione ricorrente-->
           <h6 class="text-white">Con che frequenza?</h6>
           <label class="text-white">
-            <select name="frequenza" id="frequenzaOperazione" class="text-black" disabled>
+            <select name="frequenza" id="frequenzaOperazione" class="text-white bg-[#2A2A2A] rounded-[20px] border-b border-b-[#404040]" disabled>
               <option value="never">mai</option>
               <option value="weekly">settimanale</option>
               <option value="monthly">mensile</option>
