@@ -21,6 +21,15 @@
   
   <i id="pngSfondo" class="fa-regular fa-credit-card"></i>
   
+   <!--div che fa chiudure la card quando viene cliccati fuori da essa-->
+    <div id="overlayChiusuraCard" class="fixed inset-0 bg-black/50 pointer-events-none opacity-0 transition-all duration-300 z-10"></div>
+    
+    <!--div da utilizzare per alert o conferme o in qualsiasi modo-->
+    <div id="alertPopUp" class="fixed overflow-hidden flex flex-col align-center w-[90%] p-4 min-h-12 m-auto z-50 border border-white/10 bg-[#303030] rounded-xl backdrop-blur-lg text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-0 transition-all duration-500 ease">
+      <h1 class="w-[100%] border-b border-white/10 mb-1">Attenzione</h1>
+      <p id="bodyAlert" class="self-center">Alert Messagge</p>
+      <button id="chiusura" class="border border-white/10 p-2 rounded-lg self-end">OK</button>
+    </div>
   <!--Section per la pagina di login.-->
   <section id="paginaLogin" class="h-screen w-full flex flex-col items-center justify-center m-0 p-0">
     
@@ -61,9 +70,6 @@
       <p id="ctaSaldo" class="text-2xl text-[#F4F8F9]">Il tuo saldo attuale:</p>
       <h1 id="deposito" class="text-4xl text-[#F4F8F9] m-4"><span id="aggiorna" class="text-7xl md:text-8xl">0.00</span>€</h1>
     </section>
-    
-    <!--div che fa chiudure la card quando viene cliccati fuori da essa-->
-    <div id="overlayChiusuraCard" class="fixed inset-0 bg-black/50 pointer-events-none opacity-0 transition-all duration-300 z-10"></div>
     
     <!--Card che appare per i dettagli dell'aggiunta del movimento-->
       <section id="cardDiAggiunta" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 overflow-hidden flex flex-col items-center justify-between h-auto w-auto ml-4 z-20 p-4 bg-[#202020] border border-black rounded-3xl scale-0 transition-all duration-10000">

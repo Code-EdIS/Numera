@@ -14,6 +14,8 @@ const aggiuntaTransazione = document.getElementById("cardDiAggiunta");
 
 const overlay = document.getElementById("overlayChiusuraCard");
 
+const alertPopUp = document.getElementById("alertPopUp");
+
 export function apriTendinaRicorrenza() {
   dettagliRicorrenza.classList.remove("max-h-0");
   dettagliRicorrenza.classList.add("max-h-[500px]");
@@ -52,4 +54,20 @@ export function animazioneDashboard(){
   
   cardConto.classList.remove("opacity-0", "scale-75");
   cardTrans.classList.remove("translate-y-8", "scale-95", "opacity-0");
+}
+
+export function apriAvviso(){
+  alertPopUp.classList.remove("scale-0");
+  alertPopUp.classList.add("scale-100");
+  
+  overlay.classList.remove("opacity-0", "pointer-events-none");
+  overlay.classList.add("opacity-100");
+}
+
+export function chiudiAvviso(){
+  alertPopUp.classList.remove("scale-100");
+  alertPopUp.classList.add("scale-0");
+  
+  overlay.classList.remove("opacity-100");
+  overlay.classList.add("opacity-0", "pointer-events-none");
 }

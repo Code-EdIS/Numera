@@ -4,6 +4,7 @@ import * as funzioni from "./modules/api.js"
 
 import * as anime from "./modules/animazioni.js"
 
+const bodyAlert = document.getElementById("bodyAlert");
 //funzione di aggiornamento UI che parte in ogni occasione necessaria
 async function aggiornaUI(){
   const totale = await funzioni.contaImporto();
@@ -98,6 +99,12 @@ function chiudiDashboard(){
   document.getElementById("paginaPrincipale").classList.add("hidden");
 }
 
+//funzione per mostrare gli avvisi, equivalente di alert ma personalizzato
+function avviso(message){
+  anime.apriAvviso();
+  bodyAlert.textContent(message);
+  setTimeout( () => {anime.chiudiAvviso()}, 1000);
+}
 //funzione login con dichiarazioni e funzione
 const formLogin = document.getElementById("loginForm");
 
@@ -113,7 +120,10 @@ window.addEventListener('load', async() => {
     }else{
       chiudiDashboard();
       mostraLogin();
-      formLogin.addEventListener("submit", async (e) => {
+}
+});
+
+formLogin.addEventListener("submit", async (e) => {
       e.preventDefault();
   
         const mail = formLogin.querySelector("input[type='email']").value;
@@ -128,9 +138,9 @@ window.addEventListener('load', async() => {
           caricaLista();
           formLogin.reset();
         }else{
-          alert(res.message);
-        }})}; 
-});
+          avviso(res.message);
+        }
+}); 
 
 //blocco movimenti
 const pulsanteAggiunta = document.getElementById("addMovimento");
@@ -187,6 +197,7 @@ formAggiunta.addEventListener('submit', async (e) => {
 const overlay = document.getElementById("overlayChiusuraCard");
 
 overlay.addEventListener("click", () => {
+  anime.chiudiAvviso();
   anime.chiudiTransazione();
   resetFormCompleto();
 })
